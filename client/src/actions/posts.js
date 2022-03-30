@@ -2,6 +2,7 @@ import * as api from '../api';
 
 
 // Action Creators
+// Get posts
 export const getPosts = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts();
@@ -12,6 +13,7 @@ export const getPosts = () => async (dispatch) => {
     }
 };
 
+// Create post
 export const createPost = (post) => async (dispatch) => {
     try {
         const { data } = await api.createPost(post);
