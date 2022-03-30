@@ -1,14 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
+import { deletePost, likePost } from '../../../actions/posts';
 
 import useStyles from './styles';
 
 const Post = ({ post, setCurrentId }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     return (
         <Card className={classes.card}>
@@ -37,7 +40,7 @@ const Post = ({ post, setCurrentId }) => {
                 <Button 
                     size="small" 
                     color="primary"
-                    onClick={() => {}}
+                    onClick={() => dispatch(likePost(post._id))}
                 >
                     <ThumbUpAltIcon fontSize="small" />
                     Like
@@ -46,7 +49,7 @@ const Post = ({ post, setCurrentId }) => {
                 <Button 
                     size="small" 
                     color="primary"
-                    onClick={() => {}}
+                    onClick={() => dispatch(deletePost(post._id))}
                 >
                     <DeleteIcon fontSize="small" />
                     Delete
