@@ -1,18 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Typography, Toolbar, Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { AppBar, Typography, Toolbar, Button, Avatar } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import memories from '../../images/memories.png';
 import useStyles from './styles';
 
 const Navbar = () => {
     const classes = useStyles();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
 
-    const user = null;
+    const logout = () => {
+        dispatch({ type: 'LOGOUT'});
+        history.push('/');
+        setUser(null);
+    };
+
+    useEffect(() => {
+        const token = user?.token;
+        // JWT
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location])
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Typography compoenent={Link} to="/" className={classes.heading} variant="h2" align="center">Memories</Typography>
+                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Memories</Typography>
                 <img className={classes.image} src={memories} alt="logo" height="60" />
             </div>
             <Toolbar className={classes.toolbar}>
@@ -32,6 +47,7 @@ const Navbar = () => {
                             variant="contained" 
                             className={classes.logout} 
                             color="secondary"
+                            onClick={logout}
                         >
                             Logout
                         </Button>
