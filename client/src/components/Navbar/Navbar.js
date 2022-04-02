@@ -22,7 +22,7 @@ const Navbar = () => {
         const token = user?.token;
         // JWT
         setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location])
+    }, [location]);
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
